@@ -46,17 +46,19 @@ download_tool \
     "https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-${ARCH}.AppImage" \
     "${QT_PLUGIN}"
 
+ln -sfn "${QT_PLUGIN}" "${CACHE_DIR}/linuxdeploy-plugin-qt"
+
 export APPIMAGE_EXTRACT_AND_RUN="${APPIMAGE_EXTRACT_AND_RUN:-1}"
 export OUTPUT="${DIST_DIR}/${OUTPUT_NAME}"
+export PATH="${CACHE_DIR}:${PATH}"
 export QMAKE="${QMAKE:-$(command -v qmake)}"
-
-"${QT_PLUGIN}" --appdir "${APPDIR}"
 
 "${LINUXDEPLOY}" \
     --appdir "${APPDIR}" \
     --executable "${APPDIR}/usr/bin/RocketLauncher2" \
     --desktop-file "${ROOT_DIR}/packaging/linux/io.github.Hypnotoad90.RocketLauncher2.desktop" \
     --icon-file "${ROOT_DIR}/packaging/linux/rocketlauncher2.svg" \
+    --plugin qt \
     --output appimage
 
 chmod +x "${OUTPUT}"

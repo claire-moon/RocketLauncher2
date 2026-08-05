@@ -5,5 +5,6 @@ Comment=Front end for DOOM source ports
 Exec=RocketLauncher2 %F
 Icon=rocketlauncher2
 Terminal=false
-Categories=Game;Utility;
+Categories=Game;
+Keywords=DOOM;WAD;IWAD;source port;
 StartupNotify=true

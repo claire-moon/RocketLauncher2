@@ -22,21 +22,29 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install build dependencies
         run: |
           sudo apt-get update
           sudo apt-get install --yes \
+            appstream \
             build-essential \
             curl \
+            desktop-file-utils \
             file \
             libfuse2 \
             libgl1-mesa-dev \
             qt5-qmake \
             qtbase5-dev \
             qttools5-dev-tools \
-            shellcheck
+            shellcheck \
+            xvfb
+
+      - name: Validate packaging metadata
+        run: |
+          desktop-file-validate packaging/linux/io.github.Hypnotoad90.RocketLauncher2.desktop
+          appstreamcli validate --no-net packaging/linux/io.github.Hypnotoad90.RocketLauncher2.appdata.xml
 
       - name: Check packaging scripts
         run: shellcheck scripts/*.sh

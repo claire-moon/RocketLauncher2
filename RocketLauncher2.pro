@@ -52,5 +52,8 @@ unix {
     icon.path = /usr/share/icons/hicolor/scalable/apps
     icon.files = packaging/linux/rocketlauncher2.svg
 
-    INSTALLS += target desktop icon
+    metainfo.path = /usr/share/metainfo
+    metainfo.files = packaging/linux/io.github.Hypnotoad90.RocketLauncher2.appdata.xml
+
+    INSTALLS += target desktop icon metainfo
 }

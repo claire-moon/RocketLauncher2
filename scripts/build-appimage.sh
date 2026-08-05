@@ -9,13 +9,21 @@ CACHE_DIR="${CACHE_DIR:-${ROOT_DIR}/.cache/linuxdeploy}"
 VERSION="${VERSION:-0.1.0.2}"
 ARCH="${ARCH:-x86_64}"
 OUTPUT_NAME="RocketLauncher2-${VERSION}-${ARCH}.AppImage"
+OUTPUT_PATH="${DIST_DIR}/${OUTPUT_NAME}"
 
 if [[ "$(uname -m)" != "x86_64" ]]; then
     printf 'AppImage packaging currently supports x86_64 hosts only.\n' >&2
     exit 1
 fi
 
-"${ROOT_DIR}/scripts/build-linux.sh" "${BUILD_DIR}"
+if [[ ! -x "${BUILD_DIR}/RocketLauncher2" || ! -f "${BUILD_DIR}/Makefile" ]]; then
+    "${ROOT_DIR}/scripts/build-linux.sh" "${BUILD_DIR}"
+fi
+
+if ! command -v xvfb-run >/dev/null 2>&1; then
+    printf 'xvfb-run is required for the AppImage startup test.\n' >&2
+    exit 1
+fi
 
 rm -rf "${APPDIR}" "${DIST_DIR}"
 mkdir -p "${APPDIR}" "${DIST_DIR}" "${CACHE_DIR}"
@@ -49,7 +57,7 @@ download_tool \
 ln -sfn "${QT_PLUGIN}" "${CACHE_DIR}/linuxdeploy-plugin-qt"
 
 export APPIMAGE_EXTRACT_AND_RUN="${APPIMAGE_EXTRACT_AND_RUN:-1}"
-export OUTPUT="${DIST_DIR}/${OUTPUT_NAME}"
+export LDAI_OUTPUT="${OUTPUT_PATH}"
 export PATH="${CACHE_DIR}:${PATH}"
 export QMAKE="${QMAKE:-$(command -v qmake)}"
 
@@ -61,10 +69,10 @@ export QMAKE="${QMAKE:-$(command -v qmake)}"
     --plugin qt \
     --output appimage
 
-chmod +x "${OUTPUT}"
+chmod +x "${OUTPUT_PATH}"
 
-QT_QPA_PLATFORM=offscreen \
 ROCKETLAUNCHER2_SMOKE_TEST=1 \
-"${OUTPUT}" --appimage-extract-and-run
+xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" \
+    "${OUTPUT_PATH}" --appimage-extract-and-run
 
-printf 'Linux AppImage: %s\n' "${OUTPUT}"
+printf 'Linux AppImage: %s\n' "${OUTPUT_PATH}"

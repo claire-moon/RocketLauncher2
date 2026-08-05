@@ -1,6 +1,6 @@
 # Linux build and packaging
 
-Rocket Launcher 2.0 is a Qt 5 application. The repository now provides a native Linux build script and an x86_64 AppImage packaging script.
+Rocket Launcher 2.0 is a Qt 5 application. The repository provides a native Linux build script and an x86_64 AppImage packaging script.
 
 ## Install build dependencies
 
@@ -9,17 +9,29 @@ Debian, Ubuntu and Linux Mint:
 ```sh
 sudo apt-get update
 sudo apt-get install \
+  appstream \
   build-essential \
   curl \
+  desktop-file-utils \
   file \
   libfuse2 \
   libgl1-mesa-dev \
   qt5-qmake \
   qtbase5-dev \
-  qttools5-dev-tools
+  qttools5-dev-tools \
+  shellcheck \
+  xvfb
 ```
 
-`libfuse2` is needed to mount AppImages normally. The generated AppImage can also run without FUSE by passing `--appimage-extract-and-run`.
+`libfuse2` is needed to mount AppImages normally. The generated AppImage can also run without FUSE by passing `--appimage-extract-and-run`. `xvfb` is used only for the automated packaged-application startup test.
+
+## Validate packaging files
+
+```sh
+desktop-file-validate packaging/linux/io.github.Hypnotoad90.RocketLauncher2.desktop
+appstreamcli validate --no-net packaging/linux/io.github.Hypnotoad90.RocketLauncher2.appdata.xml
+shellcheck scripts/*.sh
+```
 
 ## Build the native binary
 
@@ -45,7 +57,7 @@ From the repository root:
 scripts/build-appimage.sh
 ```
 
-The packaging script downloads `linuxdeploy` and its Qt plugin into `.cache/linuxdeploy`, creates an `AppDir`, and writes the finished package to:
+The packaging script downloads `linuxdeploy` and its Qt plugin into `.cache/linuxdeploy`, creates an `AppDir`, runs the completed package under Xvfb, and writes the finished package to:
 
 ```text
 dist/RocketLauncher2-0.1.0.2-x86_64.AppImage
@@ -92,4 +104,4 @@ This includes engine definitions, the selected IWAD list, favorites and saved la
 
 ## Continuous integration
 
-`.github/workflows/linux-appimage.yml` builds on Ubuntu 22.04, runs the native and AppImage smoke tests, records a SHA-256 checksum, and uploads the AppImage as the `RocketLauncher2-linux-x86_64` workflow artifact.
+`.github/workflows/linux-appimage.yml` builds on Ubuntu 22.04, validates the desktop and AppStream metadata, checks the shell scripts, runs native and AppImage startup tests, records a SHA-256 checksum, and uploads the AppImage as the `RocketLauncher2-linux-x86_64` workflow artifact.

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.Hypnotoad90.RocketLauncher2</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Rocket Launcher 2.0</name>
+  <summary>Front end for DOOM source ports</summary>
+  <description>
+    <p>
+      Rocket Launcher 2.0 configures and launches DOOM source ports with selected
+      IWADs, PWADs, resource files, maps, skill settings and additional command-line
+      arguments.
+    </p>
+    <p>
+      Launcher configurations can be saved for later use, and DOSBox is supported
+      for original DOS executables.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.Hypnotoad90.RocketLauncher2.desktop</launchable>
+  <provides>
+    <binary>RocketLauncher2</binary>
+  </provides>
+  <url type="homepage">https://github.com/Hypnotoad90/RocketLauncher2</url>
+  <content_rating type="oars-1.1"/>
+</component>

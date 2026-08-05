@@ -42,16 +42,12 @@ Download executable here: https://github.com/Hypnotoad90/RocketLauncher2/release
 
 ### Linux
 
-The Linux workflow builds a portable x86_64 AppImage and publishes it as the `RocketLauncher2-linux-x86_64` workflow artifact. Download the artifact from a successful **Linux AppImage** workflow run, extract it, make the AppImage executable, and run it.
-
-To compile or package Rocket Launcher locally:
-
 ```sh
 scripts/build-linux.sh
 scripts/build-appimage.sh
 ```
 
-See [Linux build and packaging](docs/linux.md) for dependencies, source-port setup, output locations and troubleshooting.
+See [docs/linux.md](docs/linux.md).
 
 ### Mac
 

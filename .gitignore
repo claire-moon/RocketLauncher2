@@ -25,6 +25,13 @@ ui_*.h
 Makefile*
 *-build-*
 
+# Local Linux build and packaging output
+
+/build-linux/
+/AppDir/
+/dist/
+/.cache/linuxdeploy/
+
 # QtCreator
 
 *.autosave

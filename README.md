@@ -20,7 +20,7 @@ If you're pleased with your particular combination of files to load, engine sele
 
 ![Alt text](/RLPics/DOSBox.png?raw=true "Drag, Drop & Launch")
 
-As with the original Rocket Launcher: adding DOSBox as an engine, and the path to your original iD executable, will enable Rocket Launcher 2's DOSBox mode, which will pump in the necessary DOS commands into DOSBox, instantly launching Doom (or any other iD tech 1 engine you provided) along with the options you selected and files added to load. This allows you to quickly launch any pwad with Doom in DOSBOx without having to fiddle around with DOS command line.
+As with the original Rocket Launcher: adding DOSBox as an engine, and the path to your original iD executable, will enable Rocket Launcher 2's DOSBox mode, which will pump in the necessary DOS commands into DOSBox, instantly launching Doom (or any other iD tech 1 engine you provided) along with the options you selected and files added to load. This allows you to quickly launch any pwad with Doom in DOSBox without having to fiddle around with DOS command line.
 
 Note that it is recommended that your path to your original Doom executable and additional pwads contain no directory names longer than 8 characters, as this is the form DOS expects - additionally, the original executable can only load the IWAD contained in its folder, rather than the one you selected.
 
@@ -34,17 +34,26 @@ Rocket Launcher 2.0 also features a new tab allowing you to configure each engin
 
 This allows for this project to be cross platform, including support for Linux and OSX. For windows I provide a static build, which means it's provided as a single executable with no additional DLL's required or frameworks to install.
 
-### Installation
+## Installation
 
-#### Windows
+### Windows
 
 Download executable here: https://github.com/Hypnotoad90/RocketLauncher2/releases/download/0.1.0.1/RocketLauncher2_v0101.zip
 
-#### Linux
+### Linux
 
-No binaries available as of yet. To compile, simply grab Qt5-default package, then run qmake, followed by make, on the source code.
+The Linux workflow builds a portable x86_64 AppImage and publishes it as the `RocketLauncher2-linux-x86_64` workflow artifact. Download the artifact from a successful **Linux AppImage** workflow run, extract it, make the AppImage executable, and run it.
 
-#### Mac
+To compile or package Rocket Launcher locally:
+
+```sh
+scripts/build-linux.sh
+scripts/build-appimage.sh
+```
+
+See [Linux build and packaging](docs/linux.md) for dependencies, source-port setup, output locations and troubleshooting.
+
+### Mac
 
 Coming soon.
 

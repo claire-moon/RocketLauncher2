@@ -33,7 +33,7 @@ RESOURCES += \
 
 CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
-RC_ICONS = RocketLauncher2.ico
+win32:RC_ICONS = RocketLauncher2.ico
 
 CONFIG += c++11
 
@@ -42,3 +42,15 @@ QMAKE_TARGET_COMPANY = Techpillar
 QMAKE_TARGET_PRODUCT = Rocket Launcher 2.0
 QMAKE_TARGET_DESCRIPTION = Rocket Launcher 2.0
 QMAKE_TARGET_COPYRIGHT = Hypnotoad
+
+unix {
+    target.path = /usr/bin
+
+    desktop.path = /usr/share/applications
+    desktop.files = packaging/linux/io.github.Hypnotoad90.RocketLauncher2.desktop
+
+    icon.path = /usr/share/icons/hicolor/scalable/apps
+    icon.files = packaging/linux/rocketlauncher2.svg
+
+    INSTALLS += target desktop icon
+}

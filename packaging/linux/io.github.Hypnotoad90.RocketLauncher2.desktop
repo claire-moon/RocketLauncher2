@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Rocket Launcher 2.0
+Comment=Front end for DOOM source ports
+Exec=RocketLauncher2 %F
+Icon=rocketlauncher2
+Terminal=false
+Categories=Game;Utility;
+StartupNotify=true

@@ -20,11 +20,21 @@
 #include "rocketlauncher2.h"
 #include <QApplication>
 #include <QMessageBox>
+#include <QtGlobal>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     RocketLauncher2 w(0, argc, argv);
+
+    /*
+     * CI starts the complete application in Qt's offscreen platform mode.
+     * Returning here verifies construction, settings, resources and plugin
+     * loading without leaving an interactive window running indefinitely.
+     */
+    if (qEnvironmentVariableIsSet("ROCKETLAUNCHER2_SMOKE_TEST"))
+        return 0;
+
     w.show();
 
     return a.exec();

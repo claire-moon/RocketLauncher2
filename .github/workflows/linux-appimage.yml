@@ -1,0 +1,66 @@
+name: Linux AppImage
+
+on:
+  push:
+    branches:
+      - master
+      - "linux/**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-appimage:
+    name: Build x86_64 AppImage
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+
+    env:
+      APPIMAGE_EXTRACT_AND_RUN: "1"
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes \
+            build-essential \
+            curl \
+            file \
+            libfuse2 \
+            libgl1-mesa-dev \
+            qt5-qmake \
+            qtbase5-dev \
+            qttools5-dev-tools \
+            shellcheck
+
+      - name: Check packaging scripts
+        run: shellcheck scripts/*.sh
+
+      - name: Build and test native binary
+        run: scripts/build-linux.sh
+
+      - name: Build and test AppImage
+        run: scripts/build-appimage.sh
+
+      - name: Record checksums
+        run: sha256sum dist/*.AppImage > dist/SHA256SUMS
+
+      - name: Inspect artifacts
+        run: |
+          file build-linux/RocketLauncher2
+          file dist/*.AppImage
+          cat dist/SHA256SUMS
+
+      - name: Upload Linux package
+        uses: actions/upload-artifact@v4
+        with:
+          name: RocketLauncher2-linux-x86_64
+          path: |
+            dist/*.AppImage
+            dist/SHA256SUMS
+          if-no-files-found: error

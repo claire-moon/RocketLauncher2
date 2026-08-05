@@ -49,8 +49,8 @@ unix {
     desktop.path = /usr/share/applications
     desktop.files = packaging/linux/io.github.Hypnotoad90.RocketLauncher2.desktop
 
-    icon.path = /usr/share/icons/hicolor/scalable/apps
-    icon.files = packaging/linux/rocketlauncher2.svg
+    icon.path = /usr/share/icons/hicolor/256x256/apps
+    icon.files = packaging/linux/rocketlauncher2.png
 
     metainfo.path = /usr/share/metainfo
     metainfo.files = packaging/linux/io.github.Hypnotoad90.RocketLauncher2.appdata.xml
